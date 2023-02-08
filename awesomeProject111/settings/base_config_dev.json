@@ -1,0 +1,25 @@
+{
+  "img_dir": "/tmp/",
+  "system_admin": [
+    0
+  ],
+  "http_server_config": {
+    "addr": ":9393",
+    "read_timeout": 10,
+    "write_timeout": 10
+  },
+  "mysql": {
+    "host": "192.168.28.15",
+    "port": "3306",
+    "user": "root",
+    "password": "intsig_inner",
+    "database": "d_chat"
+  },
+  "redis": {
+    "host": "127.0.0.1",
+    "port": "3306",
+    "user": "root",
+    "passwd": "root",
+    "database": ""
+  }
+}
