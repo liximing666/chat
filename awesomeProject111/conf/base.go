@@ -18,6 +18,7 @@ type DBItem struct {
 type BaseConfig struct {
 	ImgDir           string `json:"img_dir"`
 	SystemAdmin      []int  `json:"system_admin"`
+	Sign             string `json:"sign"`
 	HttpServerConfig struct {
 		Addr         string `json:"addr"`
 		ReadTimeout  int    `json:"read_timeout"`
