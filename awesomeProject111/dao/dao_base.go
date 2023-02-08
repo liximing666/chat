@@ -88,7 +88,7 @@ func InitConn(dbName string, prefix string) *gorm.DB {
 	dbConf := conf.BaseConf.Mysql
 
 	var mysqlDsn string
-	mysqlDsn = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&timeout=5s", dbConf.User, dbConf.Password, dbConf.Host, dbConf.Port, dbConf.Database)
+	mysqlDsn = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&timeout=1000s", dbConf.User, dbConf.Password, dbConf.Host, dbConf.Port, dbConf.Database)
 
 	//初始化日志
 	newLogger := NewLogger(
