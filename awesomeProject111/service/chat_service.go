@@ -3,14 +3,19 @@ package service
 import (
 	"awesomeProject111/conf"
 	chat_dao "awesomeProject111/dao"
+	chat_dao2 "awesomeProject111/dao/chat_dao"
+	"awesomeProject111/model/serializer/request"
 	"awesomeProject111/model/serializer/response"
+	"awesomeProject111/pkg/ecode"
 	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"strings"
 )
 
 type ChatService struct {
@@ -55,8 +60,24 @@ func NewChatReq(prompt string) *ChatReq {
 	}
 }
 
-func (t *ChatService) GetChatRes(content string) response.ChatResponse {
-	req := NewChatReq(content)
+func (t *ChatService) GetChatRes(requestParams *request.ChatRequest) response.ChatResponse {
+	data := response.ChatResponse{}
+
+	//归属地屏蔽
+	ip := t.ctx.RemoteIP()
+
+	ipService := NewIpService(t.ctx)
+	ipRes, code := ipService.GetAscriptionPlaceByIp(ip)
+	if code != ecode.OK {
+		log.Println(code.Message())
+		return data
+	}
+
+	if strings.ContainsAny(conf.BaseConf.Black, ipRes.SuccessData.Result.Detailed) {
+		return data
+	}
+
+	req := NewChatReq(requestParams.Prompt)
 	postBody, _ := json.Marshal(req)
 
 	buffer := bytes.NewBuffer(postBody)
@@ -71,15 +92,27 @@ func (t *ChatService) GetChatRes(content string) response.ChatResponse {
 	resp, err := client.Do(request.WithContext(context.TODO()))                      //发送请求
 	if err != nil {
 		fmt.Printf("client.Do%v", err)
+		log.Println(err.Error())
 
 	}
 	respBytes, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		fmt.Printf("ioutil.ReadAll%v", err)
 	}
-
-	data := response.ChatResponse{}
+	log.Println(string(respBytes))
 	json.Unmarshal(respBytes, &data)
+
+	//访问记录
+	go func() {
+		logDao := chat_dao2.NewSearchLogger(t.ctx)
+		err = logDao.CreateSearchLog(&chat_dao2.SearchLog{
+			Ip:      ip,
+			Content: requestParams.Prompt,
+		})
+		if err != nil {
+			log.Println(err.Error())
+		}
+	}()
 
 	return data
 }

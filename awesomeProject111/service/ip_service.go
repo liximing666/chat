@@ -4,7 +4,6 @@ import (
 	"awesomeProject111/conf"
 	chat_dao "awesomeProject111/dao"
 	"awesomeProject111/model/serializer"
-	"awesomeProject111/model/serializer/request"
 	"awesomeProject111/model/serializer/response"
 	"awesomeProject111/pkg/ecode"
 	"encoding/json"
@@ -37,14 +36,13 @@ func NewIpService(ctx *gin.Context) *IpService {
 */
 
 func (t *IpService) getIpRequestUrl(ip string) string {
-	return fmt.Sprintf("http://api.k780.com/?app=ip.get&ip=%s&appkey=%s&sign=%s&format=json", ip, serializer.APP_KEY, serializer.SIGN)
+	return fmt.Sprintf("http://api.k780.com/?app=ip.get&ip=%s&appkey=%s&sign=%s&format=json", ip, serializer.APP_KEY, conf.BaseConf.Sign)
 }
 
 //查询归属地
-func (t *IpService) GetAscriptionPlaceByIp(requestParams *request.GetIpRequest) (response.IpResponse, ecode.Code) {
+func (t *IpService) GetAscriptionPlaceByIp(ip string) (response.IpResponse, ecode.Code) {
 	res := response.IpResponse{}
-
-	url := t.getIpRequestUrl(requestParams.Ip)
+	url := t.getIpRequestUrl(ip)
 
 	resp, err := http.Get(url)
 	if err != nil {

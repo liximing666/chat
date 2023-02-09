@@ -20,6 +20,7 @@ type BaseConfig struct {
 	SystemAdmin      []int  `json:"system_admin"`
 	Sign             string `json:"sign"`
 	Key              string `json:"key"`
+	Black            string `json:"black"`
 	HttpServerConfig struct {
 		Addr         string `json:"addr"`
 		ReadTimeout  int    `json:"read_timeout"`
