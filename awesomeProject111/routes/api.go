@@ -2,6 +2,7 @@ package routes
 
 import (
 	"awesomeProject111/controller"
+	"awesomeProject111/middleware"
 	"awesomeProject111/model/serializer/request"
 	"awesomeProject111/service"
 	"github.com/gin-gonic/gin"
@@ -17,6 +18,7 @@ func routeListForApi(r *gin.Engine) *gin.Engine {
 
 	searchGroup := r.Group("/search")
 	{
+		searchGroup.Use(middleware.Cors())
 		searchGroup.POST("/get", controller.Chat) //手动接口
 	}
 
