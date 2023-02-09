@@ -10,10 +10,10 @@
     "write_timeout": 10
   },
   "mysql": {
-    "host": "0.0.0.0",
+    "host": "192.168.28.15",
     "port": "3306",
     "user": "root",
-    "password": "123",
+    "password": "intsig_inner",
     "database": "d_chat"
   },
   "redis": {

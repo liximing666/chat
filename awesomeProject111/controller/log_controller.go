@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"awesomeProject111/bootstrap/service"
+	"awesomeProject111/service"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

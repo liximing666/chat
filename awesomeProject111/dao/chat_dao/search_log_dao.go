@@ -29,3 +29,8 @@ func (s *SearchLog) GetAllLog() ([]*SearchLog, error) {
 
 	return res, err
 }
+
+func (s *SearchLog) CreateSearchLog(insertObj *SearchLog) error {
+	err := s.DB.Model(&SearchLog{}).Create(insertObj).Error
+	return err
+}
