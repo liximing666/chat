@@ -1,6 +1,8 @@
 package chat_dao
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+)
 
 type SearchLog struct {
 	Id      int    `json:"id"`
