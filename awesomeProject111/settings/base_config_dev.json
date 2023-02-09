@@ -1,6 +1,7 @@
 {
   "img_dir": "/tmp/",
   "sign": "58dc7aa641433d7475b7ff3140032bde",
+  "key": "",
   "system_admin": [
     0
   ],
@@ -10,10 +11,10 @@
     "write_timeout": 10
   },
   "mysql": {
-    "host": "192.168.28.15",
+    "host": "",
     "port": "3306",
     "user": "root",
-    "password": "intsig_inner",
+    "password": "",
     "database": "d_chat"
   },
   "redis": {

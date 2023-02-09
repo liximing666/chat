@@ -19,6 +19,7 @@ type BaseConfig struct {
 	ImgDir           string `json:"img_dir"`
 	SystemAdmin      []int  `json:"system_admin"`
 	Sign             string `json:"sign"`
+	Key              string `json:"key"`
 	HttpServerConfig struct {
 		Addr         string `json:"addr"`
 		ReadTimeout  int    `json:"read_timeout"`

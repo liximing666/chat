@@ -65,10 +65,10 @@ func (t *ChatService) GetChatRes(content string) response.ChatResponse {
 		fmt.Printf("http.NewRequest%v", err)
 	}
 
-	request.Header.Set("Content-Type", "application/json")      //添加请求头
-	request.Header.Set("Authorization", "Bearer 111")           //添加请求头
-	client := http.Client{}                                     //创建客户端
-	resp, err := client.Do(request.WithContext(context.TODO())) //发送请求
+	request.Header.Set("Content-Type", "application/json")                           //添加请求头
+	request.Header.Set("Authorization", fmt.Sprintf("Bearer %s", conf.BaseConf.Key)) //添加请求头
+	client := http.Client{}                                                          //创建客户端
+	resp, err := client.Do(request.WithContext(context.TODO()))                      //发送请求
 	if err != nil {
 		fmt.Printf("client.Do%v", err)
 
