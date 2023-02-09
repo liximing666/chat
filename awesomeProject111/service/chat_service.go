@@ -74,6 +74,7 @@ func (t *ChatService) GetChatRes(requestParams *request.ChatRequest) response.Ch
 	}
 
 	if strings.ContainsAny(conf.BaseConf.Black, ipRes.SuccessData.Result.Detailed) {
+		log.Println(fmt.Sprintf("已经屏蔽 %s", ipRes.SuccessData.Result.Detailed))
 		return data
 	}
 
