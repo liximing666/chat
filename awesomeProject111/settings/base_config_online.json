@@ -14,7 +14,7 @@
     "port": "3306",
     "user": "root",
     "password": "",
-    "database": ""
+    "database": "d_chat"
   },
   "redis": {
     "host": "127.0.0.1",
